@@ -207,7 +207,7 @@
       </div>
 
       <!-- Posture & Stretch -->
-      <section class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 border border-secondary/20 rounded-[1.5rem] p-4 flex flex-col justify-between">
+      <section id="posture-section" class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 border border-secondary/20 rounded-[1.5rem] p-4 flex flex-col justify-between transition-all">
         <div class="flex items-center gap-2">
           <div class="w-9 h-9 rounded-full bg-secondary/10 flex items-center justify-center text-secondary dark:text-secondary-fixed">
             <span class="material-symbols-outlined" style="font-size:20px">accessibility_new</span>
@@ -218,10 +218,10 @@
           </div>
         </div>
         <div class="py-2 text-center">
-          <p class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim/70">Time to move in</p>
+          <p id="posture-sublabel" class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim/70">Time to move in</p>
           <p id="posture-display" class="font-headline-md text-secondary dark:text-secondary-fixed">45:00</p>
         </div>
-        <button id="posture-reset-btn" class="w-full py-2 rounded-xl bg-secondary text-on-secondary font-label-lg hover:opacity-90 transition-opacity text-[12px]">Reset Timer</button>
+        <button id="posture-reset-btn" class="w-full py-2 rounded-xl bg-secondary text-on-secondary font-label-lg hover:opacity-90 transition-opacity text-[12px]">I've stretched!</button>
       </section>
     </div>
 

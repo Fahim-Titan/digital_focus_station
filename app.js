@@ -127,38 +127,34 @@ document.addEventListener('DOMContentLoaded', () => {
   const eyeSubtitle = document.getElementById('eye-rest-subtitle');
   const eyeSection  = document.getElementById('eye-rest-section');
 
+  let eyePaused = false; // true while waiting for user to dismiss rest
+
   const renderEye = () => {
     if (!eyeDisplay) return;
     if (eyeResting) {
-      eyeDisplay.textContent = formatTime(eyeRestLeft);
+      eyeDisplay.textContent = 'Rest Now';
       if (eyeSubtitle) eyeSubtitle.textContent = 'Look 20 ft away — rest your eyes';
-      eyeSection?.classList.add('ring-2', 'ring-secondary');
+      eyeSection?.classList.add('!bg-red-500/20', 'ring-2', 'ring-red-500');
+      eyeSection?.classList.remove('ring-secondary');
     } else {
       eyeDisplay.textContent = formatTime(eyeRemaining);
       if (eyeSubtitle) eyeSubtitle.textContent = 'Next break in';
-      eyeSection?.classList.remove('ring-2', 'ring-secondary');
+      eyeSection?.classList.remove('!bg-red-500/20', 'ring-2', 'ring-red-500');
     }
   };
 
   const startEyeRest = () => {
     eyeResting = true;
-    eyeRestLeft = EYE_REST_DUR;
+    eyePaused = true;
+    clearInterval(eyeInterval);
     notify('Eye Rest Time!', 'Look 20 feet away for 20 seconds.');
     renderEye();
   };
 
   const tickEye = () => {
-    if (eyeResting) {
-      eyeRestLeft--;
-      if (eyeRestLeft <= 0) {
-        eyeResting = false;
-        eyeRemaining = EYE_INTERVAL;
-      }
-    } else {
-      eyeRemaining--;
-      if (eyeRemaining <= 0) startEyeRest();
-    }
-    renderEye();
+    eyeRemaining--;
+    if (eyeRemaining <= 0) startEyeRest();
+    else renderEye();
   };
 
   eyeInterval = setInterval(tickEye, 1000);
@@ -166,8 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   eyeDoneBtn?.addEventListener('click', () => {
     eyeResting = false;
+    eyePaused = false;
     eyeRemaining = EYE_INTERVAL;
     renderEye();
+    eyeInterval = setInterval(tickEye, 1000);
   });
 
   // ── Posture / Stretch Timer ───────────────────────────────────────────────
@@ -175,28 +173,44 @@ document.addEventListener('DOMContentLoaded', () => {
   let postureRemaining = POSTURE_INTERVAL;
   let postureInterval = null;
 
-  const postureDisplay = document.getElementById('posture-display');
+  const postureDisplay  = document.getElementById('posture-display');
   const postureResetBtn = document.getElementById('posture-reset-btn');
+  const postureSection  = document.getElementById('posture-section');
+  const postureSublabel = document.getElementById('posture-sublabel');
+  let postureAlerting = false;
 
   const renderPosture = () => {
-    if (postureDisplay) postureDisplay.textContent = formatTime(postureRemaining);
+    if (!postureDisplay) return;
+    if (postureAlerting) {
+      postureDisplay.textContent = 'Stretch!';
+      if (postureSublabel) postureSublabel.textContent = 'Time to stand & stretch';
+      postureSection?.classList.add('!bg-red-500/20', 'ring-2', 'ring-red-500');
+    } else {
+      postureDisplay.textContent = formatTime(postureRemaining);
+      if (postureSublabel) postureSublabel.textContent = 'Time to move in';
+      postureSection?.classList.remove('!bg-red-500/20', 'ring-2', 'ring-red-500');
+    }
   };
 
   const tickPosture = () => {
     postureRemaining--;
-    renderPosture();
     if (postureRemaining <= 0) {
+      postureAlerting = true;
+      clearInterval(postureInterval);
       notify('Stretch Time!', 'Stand up and stretch for a minute.');
-      postureRemaining = POSTURE_INTERVAL;
     }
+    renderPosture();
   };
 
   postureInterval = setInterval(tickPosture, 1000);
   renderPosture();
 
   postureResetBtn?.addEventListener('click', () => {
+    postureAlerting = false;
     postureRemaining = POSTURE_INTERVAL;
     renderPosture();
+    clearInterval(postureInterval);
+    postureInterval = setInterval(tickPosture, 1000);
   });
 
   // ── Hydration Tracker ─────────────────────────────────────────────────────
