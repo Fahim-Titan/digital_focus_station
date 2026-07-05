@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Digital Focus Station</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Atkinson+Hyperlegible+Next:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">try{
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "outline": "#72787b", "inverse-surface": "#2e3132", "tertiary-fixed-dim": "#b6cad2",
+            "on-secondary-fixed-variant": "#24502c", "secondary-fixed-dim": "#a2d3a4",
+            "on-primary-fixed": "#001f2a", "on-background": "#191c1d", "error": "#ba1a1a",
+            "surface": "#f8fafb", "outline-variant": "#c2c7cb", "on-primary-fixed-variant": "#2e4b57",
+            "tertiary-container": "#65777f", "secondary": "#3c6842", "on-surface": "#191c1d",
+            "tertiary-fixed": "#d2e6ef", "on-secondary-container": "#426e47", "inverse-on-surface": "#eff1f2",
+            "on-error-container": "#93000a", "surface-tint": "#466270", "on-primary-container": "#fbfdff",
+            "secondary-fixed": "#bdefbe", "on-secondary": "#ffffff", "on-tertiary-fixed": "#0b1e24",
+            "on-secondary-fixed": "#002109", "on-tertiary": "#ffffff", "surface-dim": "#d8dadb",
+            "on-tertiary-fixed-variant": "#374951", "on-surface-variant": "#42484b", "on-primary": "#ffffff",
+            "surface-bright": "#f8fafb", "background": "#f8fafb", "surface-variant": "#e1e3e4",
+            "primary": "#43606d", "on-tertiary-container": "#fafdff", "on-error": "#ffffff",
+            "surface-container-highest": "#e1e3e4", "surface-container-lowest": "#ffffff",
+            "secondary-container": "#bdefbe", "primary-fixed-dim": "#adcbda", "tertiary": "#4c5f66",
+            "primary-fixed": "#c9e7f7", "surface-container-low": "#f2f4f5", "error-container": "#ffdad6",
+            "surface-container-high": "#e6e8e9", "surface-container": "#eceeef",
+            "primary-container": "#5c7987", "inverse-primary": "#adcbda"
+          },
+          borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" },
+          fontFamily: {
+            "headline-lg": ["Manrope"], "label-lg": ["Atkinson Hyperlegible Next"],
+            "headline-sm": ["Manrope"], "headline-md": ["Manrope"],
+            "body-lg": ["Atkinson Hyperlegible Next"], "label-sm": ["Atkinson Hyperlegible Next"],
+            "body-md": ["Atkinson Hyperlegible Next"]
+          },
+          fontSize: {
+            "headline-lg": ["28px", {lineHeight:"36px", letterSpacing:"-0.02em", fontWeight:"600"}],
+            "label-lg":    ["13px", {lineHeight:"18px", letterSpacing:"0.02em",  fontWeight:"600"}],
+            "headline-sm": ["17px", {lineHeight:"24px", fontWeight:"500"}],
+            "headline-md": ["21px", {lineHeight:"28px", letterSpacing:"-0.01em", fontWeight:"600"}],
+            "body-lg":     ["16px", {lineHeight:"24px", fontWeight:"400"}],
+            "label-sm":    ["11px", {lineHeight:"14px", fontWeight:"500"}],
+            "body-md":     ["14px", {lineHeight:"20px", fontWeight:"400"}]
+          }
+        }
+      }
+    }
+  }catch(_e){}</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; overflow: hidden; }
+    @keyframes fade-in { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .animate-fade-in { animation: fade-in 0.3s ease forwards; }
+    #yt-player { position:fixed; top:-9999px; left:-9999px; width:1px; height:1px; }
+  </style>
+</head>
+<body class="h-screen overflow-hidden dark:bg-on-background dark:text-surface">
+
+<div id="yt-player" aria-hidden="true"></div>
+
+<main class="h-screen overflow-hidden flex flex-col px-4 py-3">
+
+  <!-- Header -->
+  <header class="flex justify-between items-center mb-3 shrink-0">
+    <div>
+      <h2 id="greeting" class="font-headline-lg text-headline-lg text-on-surface dark:text-surface leading-tight">Afternoon, Serena</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Your cognitive load is steady. Perfect time for deep work.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 bg-surface-container-high dark:bg-surface-variant px-3 py-1.5 rounded-full border border-outline-variant/30">
+        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+        <span class="text-label-lg font-medium text-secondary dark:text-secondary-fixed">Optimal Energy</span>
+      </div>
+      <button id="theme-toggle" class="w-9 h-9 rounded-full flex items-center justify-center bg-surface-container-high dark:bg-surface-variant hover:bg-surface-container transition-colors" aria-label="Toggle dark mode">
+        <span class="material-symbols-outlined dark:hidden" style="font-size:20px">dark_mode</span>
+        <span class="material-symbols-outlined hidden dark:block" style="font-size:20px">light_mode</span>
+      </button>
+      <button class="w-9 h-9 rounded-full flex items-center justify-center hover:bg-surface-container dark:hover:bg-surface-variant transition-colors">
+        <span class="material-symbols-outlined" style="font-size:20px">notifications</span>
+      </button>
+      <div class="w-9 h-9 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden">
+        <img class="w-full h-full object-cover" alt="Profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcfHIxkeCAWL4izla4MvvuswSuyblhelZ8Lj-RCyJHJx_47AyjvaD2BzqIRFy43Ke67qThCo2uyf9CXxDKDKUcQZLjYPV_ceVnbn0pnd3ihpeQgvqcurF7M_J8huf1-kYDNfISsTvQY7hs6VM1dW9qV5eSMJU5eE9E7kfVlTLLXMysphcZsS1ZjoKJ2aEq_lAmABqA9Y07oIYSKu1vpUwgurRyr7RLIWe7XVNuWEWKYY-TE9qNHAjkptXlWl844YYwWVujDIdFKy8">
+      </div>
+    </div>
+  </header>
+
+  <!-- Bento Grid — fills remaining height -->
+  <div class="flex-1 min-h-0 grid grid-cols-12 grid-rows-[auto_auto_auto] gap-3">
+
+    <!-- ── ROW 1 ── -->
+
+    <!-- Pomodoro Timer (smaller) -->
+    <section class="col-span-5 row-span-1 bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col items-center justify-center relative overflow-hidden">
+      <!-- Cognitive Load badge -->
+      <div class="absolute top-0 right-0 p-3">
+        <div class="flex items-center gap-1.5 text-on-surface-variant dark:text-surface-variant">
+          <span class="material-symbols-outlined" style="font-size:14px">psychology</span>
+          <span class="text-label-sm uppercase tracking-wider">Cognitive Load</span>
+        </div>
+        <div class="w-20 h-1 bg-tertiary-fixed rounded-full mt-1 overflow-hidden">
+          <div class="h-full bg-primary w-[35%] rounded-full"></div>
+        </div>
+      </div>
+
+      <!-- Mode Buttons -->
+      <div class="flex gap-2 mb-4">
+        <button id="pomodoro-focus-btn" class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-lg text-[12px] shadow-sm transition-colors">Focus</button>
+        <button id="pomodoro-short-btn" class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-surface-container text-on-surface-variant dark:text-on-surface font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Short Break</button>
+        <button id="pomodoro-long-btn"  class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-surface-container text-on-surface-variant dark:text-on-surface font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Long Break</button>
+      </div>
+
+      <!-- Timer Ring — r=56, cx=cy=64, circ=351.86 -->
+      <div class="relative w-32 h-32 flex items-center justify-center">
+        <svg class="w-full h-full -rotate-90" viewBox="0 0 128 128">
+          <circle class="text-surface-container-high dark:text-surface-container" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor" stroke-width="6"></circle>
+          <circle id="pomodoro-ring" class="text-primary" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor"
+            stroke-dasharray="351.86" stroke-dashoffset="0" stroke-width="6"
+            style="transition: stroke-dashoffset 1s linear;"></circle>
+        </svg>
+        <div class="absolute inset-0 flex flex-col items-center justify-center">
+          <span id="pomodoro-display" class="font-headline-lg text-2xl leading-none text-primary dark:text-primary-fixed-dim font-extrabold">25:00</span>
+          <span id="pomodoro-label" class="text-label-sm text-on-surface-variant dark:text-surface-variant mt-0.5">minutes left</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex gap-3 mt-4">
+        <button id="pomodoro-play-btn" class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md">
+          <span id="pomodoro-play-icon" class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1;">play_arrow</span>
+        </button>
+        <button id="pomodoro-reset-btn" class="w-10 h-10 rounded-full border border-outline-variant text-on-surface-variant dark:text-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined" style="font-size:18px">refresh</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Right Column (Daily Energy + Hydration + Posture) -->
+    <div class="col-span-7 row-span-1 grid grid-cols-3 gap-3">
+
+      <!-- Daily Energy -->
+      <div class="bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface dark:text-surface mb-2">Daily Energy</h3>
+        <div class="flex items-center justify-center flex-1">
+          <div class="relative w-24 h-24">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 96 96">
+              <circle class="text-secondary-container/30" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="10"></circle>
+              <circle class="text-secondary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="63" stroke-linecap="round" stroke-width="10"></circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="font-headline-sm text-on-surface dark:text-surface font-bold">75%</span>
+              <span class="text-label-sm text-on-surface-variant dark:text-surface-variant">Optimal</span>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-2 mt-2">
+          <div>
+            <div class="flex justify-between text-label-sm mb-0.5">
+              <span class="text-on-surface-variant dark:text-surface-variant">Focus</span>
+              <span class="text-on-surface dark:text-surface font-semibold">4.5/6h</span>
+            </div>
+            <div class="w-full h-1.5 bg-surface-container-high dark:bg-surface-container rounded-full overflow-hidden">
+              <div class="h-full bg-primary w-[75%] rounded-full"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between text-label-sm mb-0.5">
+              <span class="text-on-surface-variant dark:text-surface-variant">Breaks</span>
+              <span class="text-on-surface dark:text-surface font-semibold">8/10</span>
+            </div>
+            <div class="w-full h-1.5 bg-surface-container-high dark:bg-surface-container rounded-full overflow-hidden">
+              <div class="h-full bg-secondary w-[80%] rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hydration Tracker -->
+      <div class="bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col justify-between">
+        <div class="flex justify-between items-center mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary dark:text-primary-fixed-dim">
+              <span class="material-symbols-outlined" style="font-size:20px">water_drop</span>
+            </div>
+            <div>
+              <h3 class="font-headline-sm text-[15px] text-on-surface dark:text-surface">Hydration</h3>
+              <p id="hydration-count" class="text-label-sm text-on-surface-variant dark:text-surface-variant">0 of 8 glasses</p>
+            </div>
+          </div>
+          <button id="hydration-add-btn" class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform" aria-label="Add glass of water">
+            <span class="material-symbols-outlined" style="font-size:20px">add</span>
+          </button>
+        </div>
+        <div id="hydration-bars" class="flex gap-1.5">
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+          <div data-bar class="flex-1 h-1.5 rounded-full bg-surface-container-high dark:bg-surface-container transition-colors"></div>
+        </div>
+      </div>
+
+      <!-- Posture & Stretch -->
+      <section class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 border border-secondary/20 rounded-[1.5rem] p-4 flex flex-col justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-full bg-secondary/10 flex items-center justify-center text-secondary dark:text-secondary-fixed">
+            <span class="material-symbols-outlined" style="font-size:20px">accessibility_new</span>
+          </div>
+          <div>
+            <h3 class="font-headline-sm text-[15px] text-secondary dark:text-secondary-fixed">Posture</h3>
+            <p class="text-label-sm text-on-secondary-container dark:text-secondary-fixed-dim">Stretch Reminder</p>
+          </div>
+        </div>
+        <div class="py-2 text-center">
+          <p class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim/70">Time to move in</p>
+          <p id="posture-display" class="font-headline-md text-secondary dark:text-secondary-fixed">45:00</p>
+        </div>
+        <button id="posture-reset-btn" class="w-full py-2 rounded-xl bg-secondary text-on-secondary font-label-lg hover:opacity-90 transition-opacity text-[12px]">Reset Timer</button>
+      </section>
+    </div>
+
+    <!-- ── ROW 2 ── -->
+
+    <!-- Music Player -->
+    <section class="col-span-8 bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex gap-5">
+      <div class="w-28 h-28 rounded-xl overflow-hidden shadow-lg shrink-0 bg-surface-container self-center">
+        <img id="music-thumb" class="w-full h-full object-cover" alt="Track Art" src="https://img.youtube.com/vi/q76bMs-NwRk/maxresdefault.jpg">
+      </div>
+      <div class="flex-1 flex flex-col justify-between py-1 min-w-0">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            <span class="text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-surface-variant">Concentration Mode</span>
+          </div>
+          <h3 id="music-title" class="font-headline-sm text-on-surface dark:text-surface truncate">Deep Forest Rain</h3>
+          <p id="music-subtitle" class="text-body-md text-on-surface-variant dark:text-surface-variant">Ambient Soundscape</p>
+        </div>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3">
+            <button id="music-prev-btn" class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" aria-label="Previous">
+              <span class="material-symbols-outlined" style="font-size:22px">skip_previous</span>
+            </button>
+            <button id="music-play-btn" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform" aria-label="Play/Pause">
+              <span id="music-play-icon" class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1;">play_arrow</span>
+            </button>
+            <button id="music-next-btn" class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" aria-label="Next">
+              <span class="material-symbols-outlined" style="font-size:22px">skip_next</span>
+            </button>
+            <div class="flex-1 flex items-center gap-2 ml-2">
+              <span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant" style="font-size:16px">volume_down</span>
+              <input id="music-volume" class="flex-1 h-1 bg-surface-container-high dark:bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" type="range" min="0" max="100" value="65">
+              <span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant" style="font-size:16px">volume_up</span>
+            </div>
+          </div>
+          <div class="flex gap-2 overflow-x-auto pb-1">
+            <button data-category="white-noise" class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">White Noise</button>
+            <button data-category="lofi"        class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Lofi Focus</button>
+            <button data-category="zen"         class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Zen Garden</button>
+            <button data-category="ocean"       class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Ocean Waves</button>
+            <button data-category="ambient"     class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Forest Rain</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Focus Stats -->
+    <section class="col-span-4 bg-tertiary-fixed dark:bg-tertiary-container dark:text-on-tertiary-container rounded-[1.5rem] p-5 flex flex-col justify-between text-on-tertiary-fixed">
+      <h3 class="font-headline-sm mb-2">Focus Stats</h3>
+      <div class="grid grid-cols-2 gap-2 flex-1">
+        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl">
+          <p class="text-label-sm opacity-70">Today's Focus</p>
+          <p class="font-headline-sm font-bold">4.5h</p>
+        </div>
+        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl">
+          <p class="text-label-sm opacity-70">Avg Session</p>
+          <p class="font-headline-sm font-bold">52m</p>
+        </div>
+        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl col-span-2 flex items-center justify-between">
+          <div>
+            <p class="text-label-sm opacity-70">Current Streak</p>
+            <p class="font-headline-sm font-bold">12 Days</p>
+          </div>
+          <span class="material-symbols-outlined text-3xl opacity-40">local_fire_department</span>
+        </div>
+      </div>
+      <p class="mt-2 text-label-sm italic opacity-80">"You're in the top 5% of focused users today."</p>
+    </section>
+
+    <!-- ── ROW 3 ── -->
+
+    <!-- 20-20-20 Eye Rest -->
+    <section id="eye-rest-section" class="col-span-12 bg-secondary-container/40 dark:bg-on-secondary-fixed-variant/10 border border-secondary/20 rounded-[1.5rem] px-6 py-3 flex items-center justify-between gap-6 transition-all">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center text-secondary dark:text-secondary-fixed shrink-0">
+          <span class="material-symbols-outlined" style="font-size:24px">visibility</span>
+        </div>
+        <div>
+          <h3 class="font-headline-sm text-secondary dark:text-secondary-fixed">Eye Rest — 20-20-20 Rule</h3>
+          <p class="text-body-md text-on-secondary-container dark:text-secondary-fixed-dim">Look 20 feet away for 20 seconds. Reduces digital eye strain.</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 shrink-0">
+        <div class="text-right">
+          <p id="eye-rest-subtitle" class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim/70">Next break in</p>
+          <p id="eye-rest-display" class="text-[2rem] leading-none text-secondary dark:text-secondary-fixed font-bold font-headline-lg">20:00</p>
+        </div>
+        <button id="eye-rest-done-btn" class="px-6 py-3 rounded-xl bg-secondary text-on-secondary font-label-lg hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap">I've already done this</button>
+      </div>
+    </section>
+
+  </div><!-- /grid -->
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
