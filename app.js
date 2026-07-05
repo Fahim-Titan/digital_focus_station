@@ -39,6 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
   let pomodoroRunning = false;
   let pomodoroInterval = null;
 
+  // Cognitive load tracking
+  let cognitiveLoad = 0;       // 0–4 (each unit = 25%)
+  let focusDone = false;       // tracks if focus half of cycle is done
+
+  const cogBar = document.getElementById('cognitive-bar');
+  const cogPct = document.getElementById('cognitive-pct');
+
+  const renderCognitive = () => {
+    const pct = cognitiveLoad * 25;
+    if (cogBar) {
+      cogBar.style.width = `${pct}%`;
+      cogBar.className = `h-full rounded-full transition-all duration-500 ${pct >= 100 ? 'bg-red-500' : pct >= 75 ? 'bg-amber-500' : 'bg-primary'}`;
+    }
+    if (cogPct) {
+      cogPct.textContent = `${pct}%`;
+      cogPct.className = `text-label-sm font-bold ${pct >= 100 ? 'text-red-500' : pct >= 75 ? 'text-amber-500' : 'text-primary'}`;
+    }
+  };
+
   const RING_CIRCUMFERENCE = 2 * Math.PI * 56; // r=56
 
   const pomDisplay   = document.getElementById('pomodoro-display');
@@ -92,6 +111,25 @@ document.addEventListener('DOMContentLoaded', () => {
       renderPomodoro();
       const modeInfo = POMODORO_MODES[pomodoroMode];
       notify(`${modeInfo.label} complete!`, `Your ${modeInfo.unit} is done.`);
+
+      // Cognitive load logic
+      if (pomodoroMode === 'focus') {
+        focusDone = true;
+      } else if (pomodoroMode === 'short' && focusDone) {
+        // Completed a full cycle: focus + short break
+        focusDone = false;
+        cognitiveLoad = Math.min(4, cognitiveLoad + 1);
+        renderCognitive();
+        if (cognitiveLoad >= 4) {
+          showToast('Cognitive Load Maxed!', 'You\'ve done 4 cycles. Take a long break now to reset.');
+        }
+      } else if (pomodoroMode === 'long') {
+        // Long break resets everything
+        cognitiveLoad = 0;
+        focusDone = false;
+        renderCognitive();
+        notify('Cognitive load reset!', 'Great job. You\'re refreshed for another round.');
+      }
     }
   };
 
@@ -112,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
   pomResetBtn?.addEventListener('click', () => setMode(pomodoroMode));
 
   setMode('focus');
+  renderCognitive();
 
   // ── 20-20-20 Eye Rest Timer ───────────────────────────────────────────────
   const EYE_INTERVAL = 20 * 60; // 20 minutes
