@@ -67,11 +67,11 @@
   <!-- Header -->
   <header class="flex justify-between items-center mb-3 shrink-0">
     <div>
-      <h2 id="greeting" class="font-headline-lg text-headline-lg text-on-surface dark:text-surface leading-tight">Afternoon, Serena</h2>
-      <p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">Your cognitive load is steady. Perfect time for deep work.</p>
+      <h2 id="greeting" class="font-headline-lg text-headline-lg text-on-surface dark:text-secondary-fixed leading-tight">Afternoon, Serena</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant dark:text-secondary-fixed-dim">Your cognitive load is steady. Perfect time for deep work.</p>
     </div>
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2 bg-surface-container-high dark:bg-surface-variant px-3 py-1.5 rounded-full border border-outline-variant/30">
+      <div class="flex items-center gap-2 bg-surface-container-high dark:bg-on-secondary-fixed-variant/20 px-3 py-1.5 rounded-full border border-outline-variant/30 dark:border-secondary/20">
         <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
         <span class="text-label-lg font-medium text-secondary dark:text-secondary-fixed">Optimal Energy</span>
       </div>
@@ -94,15 +94,15 @@
     <!-- ── ROW 1 ── -->
 
     <!-- Pomodoro Timer (smaller) -->
-    <section class="col-span-5 row-span-1 bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col items-center justify-center relative overflow-hidden">
+    <section class="col-span-5 row-span-1 bg-surface-container-lowest dark:bg-on-secondary-fixed-variant/10 border border-outline-variant/40 dark:border-secondary/20 rounded-[1.5rem] p-4 flex flex-col items-center justify-center relative overflow-hidden">
       <!-- Cognitive Load badge -->
       <div class="absolute top-0 right-0 p-3">
-        <div class="flex items-center gap-1.5 text-on-surface-variant dark:text-surface-variant">
+        <div class="flex items-center gap-1.5 text-on-surface-variant dark:text-secondary-fixed-dim">
           <span class="material-symbols-outlined" style="font-size:14px">psychology</span>
           <span class="text-label-sm uppercase tracking-wider">Cognitive Load</span>
-          <span id="cognitive-pct" class="text-label-sm font-bold text-primary">0%</span>
+          <span id="cognitive-pct" class="text-label-sm font-bold text-primary dark:text-secondary-fixed">0%</span>
         </div>
-        <div class="w-20 h-1 bg-tertiary-fixed rounded-full mt-1 overflow-hidden">
+        <div class="w-20 h-1 bg-tertiary-fixed dark:bg-secondary/20 rounded-full mt-1 overflow-hidden">
           <div id="cognitive-bar" class="h-full bg-primary w-0 rounded-full transition-all duration-500"></div>
         </div>
       </div>
@@ -110,30 +110,30 @@
       <!-- Mode Buttons -->
       <div class="flex gap-2 mb-4">
         <button id="pomodoro-focus-btn" class="px-3 py-1 rounded-full bg-primary text-on-primary font-label-lg text-[12px] shadow-sm transition-colors">Focus</button>
-        <button id="pomodoro-short-btn" class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-surface-container text-on-surface-variant dark:text-on-surface font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Short Break</button>
-        <button id="pomodoro-long-btn"  class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-surface-container text-on-surface-variant dark:text-on-surface font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Long Break</button>
+        <button id="pomodoro-short-btn" class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-on-secondary-fixed-variant/20 text-on-surface-variant dark:text-secondary-fixed font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Short Break</button>
+        <button id="pomodoro-long-btn"  class="px-3 py-1 rounded-full bg-surface-container-high dark:bg-on-secondary-fixed-variant/20 text-on-surface-variant dark:text-secondary-fixed font-label-lg text-[12px] hover:bg-surface-container-highest transition-colors">Long Break</button>
       </div>
 
       <!-- Timer Ring — r=56, cx=cy=64, circ=351.86 -->
       <div class="relative w-32 h-32 flex items-center justify-center">
         <svg class="w-full h-full -rotate-90" viewBox="0 0 128 128">
-          <circle class="text-surface-container-high dark:text-surface-container" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor" stroke-width="6"></circle>
-          <circle id="pomodoro-ring" class="text-primary" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor"
+          <circle class="text-surface-container-high dark:text-secondary/20" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor" stroke-width="6"></circle>
+          <circle id="pomodoro-ring" class="text-primary dark:text-secondary-fixed" cx="64" cy="64" fill="transparent" r="56" stroke="currentColor"
             stroke-dasharray="351.86" stroke-dashoffset="0" stroke-width="6"
             style="transition: stroke-dashoffset 1s linear;"></circle>
         </svg>
         <div class="absolute inset-0 flex flex-col items-center justify-center">
-          <span id="pomodoro-display" class="font-headline-lg text-2xl leading-none text-primary dark:text-primary-fixed-dim font-extrabold">25:00</span>
-          <span id="pomodoro-label" class="text-label-sm text-on-surface-variant dark:text-surface-variant mt-0.5">minutes left</span>
+          <span id="pomodoro-display" class="font-headline-lg text-2xl leading-none text-primary dark:text-secondary-fixed font-extrabold">25:00</span>
+          <span id="pomodoro-label" class="text-label-sm text-on-surface-variant dark:text-secondary-fixed-dim mt-0.5">minutes left</span>
         </div>
       </div>
 
       <!-- Controls -->
       <div class="flex gap-3 mt-4">
-        <button id="pomodoro-play-btn" class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md">
+        <button id="pomodoro-play-btn" class="w-10 h-10 rounded-full bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary flex items-center justify-center hover:scale-105 active:scale-95 transition-transform shadow-md">
           <span id="pomodoro-play-icon" class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1;">play_arrow</span>
         </button>
-        <button id="pomodoro-reset-btn" class="w-10 h-10 rounded-full border border-outline-variant text-on-surface-variant dark:text-surface-variant flex items-center justify-center hover:bg-surface-container transition-colors">
+        <button id="pomodoro-reset-btn" class="w-10 h-10 rounded-full border border-outline-variant dark:border-secondary/40 text-on-surface-variant dark:text-secondary-fixed-dim flex items-center justify-center hover:bg-surface-container dark:hover:bg-on-secondary-fixed-variant/20 transition-colors">
           <span class="material-symbols-outlined" style="font-size:18px">refresh</span>
         </button>
       </div>
@@ -143,52 +143,52 @@
     <div class="col-span-7 row-span-1 grid grid-cols-3 gap-3">
 
       <!-- Daily Energy -->
-      <div class="bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col">
-        <h3 class="font-headline-sm text-headline-sm text-on-surface dark:text-surface mb-2">Daily Energy</h3>
+      <div class="bg-surface-container-lowest dark:bg-on-secondary-fixed-variant/10 border border-outline-variant/40 dark:border-secondary/20 rounded-[1.5rem] p-4 flex flex-col">
+        <h3 class="font-headline-sm text-headline-sm text-on-surface dark:text-secondary-fixed mb-2">Daily Energy</h3>
         <div class="flex items-center justify-center flex-1">
           <div class="relative w-24 h-24">
             <svg class="w-full h-full -rotate-90" viewBox="0 0 96 96">
-              <circle class="text-secondary-container/30" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="10"></circle>
-              <circle class="text-secondary" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="63" stroke-linecap="round" stroke-width="10"></circle>
+              <circle class="text-secondary-container/30 dark:text-secondary/20" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="10"></circle>
+              <circle class="text-secondary dark:text-secondary-fixed" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.3" stroke-dashoffset="63" stroke-linecap="round" stroke-width="10"></circle>
             </svg>
             <div class="absolute inset-0 flex flex-col items-center justify-center">
-              <span class="font-headline-sm text-on-surface dark:text-surface font-bold">75%</span>
-              <span class="text-label-sm text-on-surface-variant dark:text-surface-variant">Optimal</span>
+              <span class="font-headline-sm text-on-surface dark:text-secondary-fixed font-bold">75%</span>
+              <span class="text-label-sm text-on-surface-variant dark:text-secondary-fixed-dim">Optimal</span>
             </div>
           </div>
         </div>
         <div class="space-y-2 mt-2">
           <div>
             <div class="flex justify-between text-label-sm mb-0.5">
-              <span class="text-on-surface-variant dark:text-surface-variant">Focus</span>
-              <span class="text-on-surface dark:text-surface font-semibold">4.5/6h</span>
+              <span class="text-on-surface-variant dark:text-secondary-fixed-dim">Focus</span>
+              <span class="text-on-surface dark:text-secondary-fixed font-semibold">4.5/6h</span>
             </div>
-            <div class="w-full h-1.5 bg-surface-container-high dark:bg-surface-container rounded-full overflow-hidden">
-              <div class="h-full bg-primary w-[75%] rounded-full"></div>
+            <div class="w-full h-1.5 bg-surface-container-high dark:bg-secondary/20 rounded-full overflow-hidden">
+              <div class="h-full bg-primary dark:bg-secondary-fixed w-[75%] rounded-full"></div>
             </div>
           </div>
           <div>
             <div class="flex justify-between text-label-sm mb-0.5">
-              <span class="text-on-surface-variant dark:text-surface-variant">Breaks</span>
-              <span class="text-on-surface dark:text-surface font-semibold">8/10</span>
+              <span class="text-on-surface-variant dark:text-secondary-fixed-dim">Breaks</span>
+              <span class="text-on-surface dark:text-secondary-fixed font-semibold">8/10</span>
             </div>
-            <div class="w-full h-1.5 bg-surface-container-high dark:bg-surface-container rounded-full overflow-hidden">
-              <div class="h-full bg-secondary w-[80%] rounded-full"></div>
+            <div class="w-full h-1.5 bg-surface-container-high dark:bg-secondary/20 rounded-full overflow-hidden">
+              <div class="h-full bg-secondary dark:bg-secondary-fixed-dim w-[80%] rounded-full"></div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Hydration Tracker -->
-      <div class="bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex flex-col justify-between">
+      <div class="bg-surface-container-lowest dark:bg-on-secondary-fixed-variant/10 border border-outline-variant/40 dark:border-secondary/20 rounded-[1.5rem] p-4 flex flex-col justify-between">
         <div class="flex justify-between items-center mb-3">
           <div class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center text-primary dark:text-primary-fixed-dim">
+            <div class="w-9 h-9 rounded-full bg-primary/10 dark:bg-secondary/20 flex items-center justify-center text-primary dark:text-secondary-fixed">
               <span class="material-symbols-outlined" style="font-size:20px">water_drop</span>
             </div>
             <div>
-              <h3 class="font-headline-sm text-[15px] text-on-surface dark:text-surface">Hydration</h3>
-              <p id="hydration-count" class="text-label-sm text-on-surface-variant dark:text-surface-variant">0 of 8 glasses</p>
+              <h3 class="font-headline-sm text-[15px] text-on-surface dark:text-secondary-fixed">Hydration</h3>
+              <p id="hydration-count" class="text-label-sm text-on-surface-variant dark:text-secondary-fixed-dim">0 of 8 glasses</p>
             </div>
           </div>
           <button id="hydration-add-btn" class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform" aria-label="Add glass of water">
@@ -229,68 +229,68 @@
     <!-- ── ROW 2 ── -->
 
     <!-- Music Player -->
-    <section class="col-span-8 bg-surface-container-lowest dark:bg-surface-container-low border border-outline-variant/40 rounded-[1.5rem] p-4 flex gap-5">
+    <section class="col-span-8 bg-surface-container-lowest dark:bg-on-secondary-fixed-variant/10 border border-outline-variant/40 dark:border-secondary/20 rounded-[1.5rem] p-4 flex gap-5">
       <div class="w-28 h-28 rounded-xl overflow-hidden shadow-lg shrink-0 bg-surface-container self-center">
         <img id="music-thumb" class="w-full h-full object-cover" alt="Track Art" src="https://img.youtube.com/vi/q76bMs-NwRk/maxresdefault.jpg">
       </div>
       <div class="flex-1 flex flex-col justify-between py-1 min-w-0">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-            <span class="text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-surface-variant">Concentration Mode</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary dark:bg-secondary-fixed"></span>
+            <span class="text-label-sm uppercase tracking-widest text-on-surface-variant dark:text-secondary-fixed-dim">Concentration Mode</span>
           </div>
-          <h3 id="music-title" class="font-headline-sm text-on-surface dark:text-surface truncate">Deep Forest Rain</h3>
-          <p id="music-subtitle" class="text-body-md text-on-surface-variant dark:text-surface-variant">Ambient Soundscape</p>
+          <h3 id="music-title" class="font-headline-sm text-on-surface dark:text-secondary-fixed truncate">Deep Forest Rain</h3>
+          <p id="music-subtitle" class="text-body-md text-on-surface-variant dark:text-secondary-fixed-dim">Ambient Soundscape</p>
         </div>
         <div class="space-y-2">
           <div class="flex items-center gap-3">
-            <button id="music-prev-btn" class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" aria-label="Previous">
+            <button id="music-prev-btn" class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-secondary-fixed transition-colors" aria-label="Previous">
               <span class="material-symbols-outlined" style="font-size:22px">skip_previous</span>
             </button>
-            <button id="music-play-btn" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:scale-105 transition-transform" aria-label="Play/Pause">
+            <button id="music-play-btn" class="w-10 h-10 rounded-full bg-secondary dark:bg-secondary text-on-secondary flex items-center justify-center hover:scale-105 transition-transform" aria-label="Play/Pause">
               <span id="music-play-icon" class="material-symbols-outlined" style="font-size:22px;font-variation-settings:'FILL' 1;">play_arrow</span>
             </button>
-            <button id="music-next-btn" class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors" aria-label="Next">
+            <button id="music-next-btn" class="text-on-surface-variant dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-secondary-fixed transition-colors" aria-label="Next">
               <span class="material-symbols-outlined" style="font-size:22px">skip_next</span>
             </button>
             <div class="flex-1 flex items-center gap-2 ml-2">
-              <span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant" style="font-size:16px">volume_down</span>
-              <input id="music-volume" class="flex-1 h-1 bg-surface-container-high dark:bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" type="range" min="0" max="100" value="65">
-              <span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant" style="font-size:16px">volume_up</span>
+              <span class="material-symbols-outlined text-on-surface-variant dark:text-secondary-fixed-dim" style="font-size:16px">volume_down</span>
+              <input id="music-volume" class="flex-1 h-1 bg-surface-container-high dark:bg-secondary/20 rounded-lg appearance-none cursor-pointer accent-secondary" type="range" min="0" max="100" value="65">
+              <span class="material-symbols-outlined text-on-surface-variant dark:text-secondary-fixed-dim" style="font-size:16px">volume_up</span>
             </div>
           </div>
           <div class="flex gap-2 overflow-x-auto pb-1">
-            <button data-category="white-noise" class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">White Noise</button>
-            <button data-category="lofi"        class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Lofi Focus</button>
-            <button data-category="zen"         class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Zen Garden</button>
-            <button data-category="ocean"       class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Ocean Waves</button>
-            <button data-category="ambient"     class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-surface-container-highest border border-outline-variant/30 text-label-sm hover:border-primary transition-colors">Forest Rain</button>
+            <button data-category="white-noise" class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-on-secondary-fixed-variant/20 border border-outline-variant/30 dark:border-secondary/20 text-label-sm dark:text-secondary-fixed-dim hover:border-primary dark:hover:border-secondary-fixed transition-colors">White Noise</button>
+            <button data-category="lofi"        class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-on-secondary-fixed-variant/20 border border-outline-variant/30 dark:border-secondary/20 text-label-sm dark:text-secondary-fixed-dim hover:border-primary dark:hover:border-secondary-fixed transition-colors">Lofi Focus</button>
+            <button data-category="zen"         class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-on-secondary-fixed-variant/20 border border-outline-variant/30 dark:border-secondary/20 text-label-sm dark:text-secondary-fixed-dim hover:border-primary dark:hover:border-secondary-fixed transition-colors">Zen Garden</button>
+            <button data-category="ocean"       class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-on-secondary-fixed-variant/20 border border-outline-variant/30 dark:border-secondary/20 text-label-sm dark:text-secondary-fixed-dim hover:border-primary dark:hover:border-secondary-fixed transition-colors">Ocean Waves</button>
+            <button data-category="ambient"     class="shrink-0 px-3 py-1.5 rounded-lg bg-surface-container dark:bg-on-secondary-fixed-variant/20 border border-outline-variant/30 dark:border-secondary/20 text-label-sm dark:text-secondary-fixed-dim hover:border-primary dark:hover:border-secondary-fixed transition-colors">Forest Rain</button>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Focus Stats -->
-    <section class="col-span-4 bg-tertiary-fixed dark:bg-tertiary-container dark:text-on-tertiary-container rounded-[1.5rem] p-5 flex flex-col justify-between text-on-tertiary-fixed">
-      <h3 class="font-headline-sm mb-2">Focus Stats</h3>
+    <section class="col-span-4 bg-secondary-container/40 dark:bg-on-secondary-fixed-variant/20 border border-secondary/20 rounded-[1.5rem] p-5 flex flex-col justify-between text-on-secondary-container dark:text-secondary-fixed">
+      <h3 class="font-headline-sm mb-2 text-secondary dark:text-secondary-fixed">Focus Stats</h3>
       <div class="grid grid-cols-2 gap-2 flex-1">
-        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl">
-          <p class="text-label-sm opacity-70">Today's Focus</p>
-          <p class="font-headline-sm font-bold">4.5h</p>
+        <div class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 p-3 rounded-xl">
+          <p class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim">Today's Focus</p>
+          <p class="font-headline-sm font-bold text-secondary dark:text-secondary-fixed">4.5h</p>
         </div>
-        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl">
-          <p class="text-label-sm opacity-70">Avg Session</p>
-          <p class="font-headline-sm font-bold">52m</p>
+        <div class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 p-3 rounded-xl">
+          <p class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim">Avg Session</p>
+          <p class="font-headline-sm font-bold text-secondary dark:text-secondary-fixed">52m</p>
         </div>
-        <div class="bg-surface-container-lowest/40 dark:bg-black/10 p-3 rounded-xl col-span-2 flex items-center justify-between">
+        <div class="bg-secondary-container/30 dark:bg-on-secondary-fixed-variant/20 p-3 rounded-xl col-span-2 flex items-center justify-between">
           <div>
-            <p class="text-label-sm opacity-70">Current Streak</p>
-            <p class="font-headline-sm font-bold">12 Days</p>
+            <p class="text-label-sm text-on-secondary-container/70 dark:text-secondary-fixed-dim">Current Streak</p>
+            <p class="font-headline-sm font-bold text-secondary dark:text-secondary-fixed">12 Days</p>
           </div>
-          <span class="material-symbols-outlined text-3xl opacity-40">local_fire_department</span>
+          <span class="material-symbols-outlined text-3xl text-secondary/40 dark:text-secondary-fixed/40">local_fire_department</span>
         </div>
       </div>
-      <p class="mt-2 text-label-sm italic opacity-80">"You're in the top 5% of focused users today."</p>
+      <p class="mt-2 text-label-sm italic text-on-secondary-container/80 dark:text-secondary-fixed-dim">"You're in the top 5% of focused users today."</p>
     </section>
 
     <!-- ── ROW 3 ── -->
